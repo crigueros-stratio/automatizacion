@@ -1,0 +1,7 @@
+*.git
+target/
+.settings/
+.atta*
+.fact*
+.pro*
+.cla*
