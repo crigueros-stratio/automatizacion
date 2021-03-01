@@ -6,7 +6,7 @@ se consume por un rest ip:puerto/start
 ## Url datacentric
 * [url][1]
 
-[1]: http://10.2.32.68:10082/
+[1]: http://10.2.32.68:10081/
 
 # automatizacion
 
