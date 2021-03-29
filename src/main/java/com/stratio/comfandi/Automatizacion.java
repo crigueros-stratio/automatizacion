@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.persistence.EntityManager;
@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stratio.comfandi.model.ParametrizacionIngesta;
 import com.stratio.comfandi.service.ConnectionService;
 import com.stratio.comfandi.service.ParametrizacionService;
-import java.util.logging.Logger;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -53,19 +52,11 @@ public class Automatizacion {
 	@GetMapping("/start")
 	ResponseEntity<String> getStart() {
 		try {
-//			prueba();
 			
 			List<ParametrizacionIngesta> info = parametrizacionService.findWithCondicionFechas(1);
 
 			info.forEach(x -> {
 				HttpsURLConnection urlConnection = connection.confParameters();
-
-				if (x.getConsulta_origen()!=null && !x.getConsulta_origen().isEmpty()) {
-					/**
-					 * validQuery: Retorna resultado de la query origen y la concatena en el destino
-					 */
-					x.setConsulta_destino(x.getConsulta_destino().concat("'" + validQuery(x) + "'"));
-				}
 				
 				String json = toJson(x);
 				try (OutputStream os = urlConnection.getOutputStream()) {
@@ -102,70 +93,6 @@ public class Automatizacion {
 		}
 		return ResponseEntity.ok().body("");
 	}
-
-	private String validQuery(ParametrizacionIngesta info) {
-		try {
-			return connection.consulta(info.getConsulta_origen());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-//	public void prueba() throws IOException {
-//		String tabla = "prueba";
-//		String path = System.getenv().get("PAH_PARQUET") == null ? "/home/stratio7/kmilo/Vanti/GOLIVE/ZDOCURTR/Parquet"
-//				: System.getenv().get("PAH_PARQUET");
-//
-//		SparkConf configuracion = new SparkConf().setAppName("prueba").setMaster("local").set("spark.driver.memory",
-//				"4g");
-//
-//		SparkSession sparkSession = SparkSession.builder().appName("prueba").master("local[*]").config(configuracion)
-//				.getOrCreate();
-//		SQLContext sqlContext = sparkSession.sqlContext();
-//
-//		Configuration conf = new Configuration();
-//
-//		FileSystem fs = FileSystem.get(conf);
-//		System.out.println(fs.getHomeDirectory());
-//
-//		RemoteIterator<LocatedFileStatus> fileStatusListIterator = fs.listFiles(new Path(path), true);
-//		while (fileStatusListIterator.hasNext()) {
-//			LocatedFileStatus fileStatus = fileStatusListIterator.next();
-//			String pathFile = fileStatus.getPath().toString();
-//			System.out.println(pathFile);
-//			if (pathFile.endsWith(".parquet")) {
-//				sparkSession.read().parquet(pathFile).createOrReplaceTempView("tabla");
-//				String query = "SELECT count(*) FROM " + tabla;
-//
-//				RDD<Row> d = sparkSession.sql(query).rdd();
-//				System.out.println(d.count());
-//			}
-//		}
-//
-//		Dataset<Row> df1 = sparkSession
-//				  .read()
-//				  .format("parquet")
-//				  .option("header", false)
-//				  .option("inferSchema", true)
-//				  .load(path);
-//		df1.show();
-//				  
-//		Dataset<Row> df2 = sparkSession.read().parquet(path);
-//		df2.show();
-//		
-//		String query = "SELECT count(*) FROM " + tabla;
-//		sparkSession.read().parquet(path).createOrReplaceTempView(tabla);
-//
-//		RDD<Row> d = sparkSession.sql(query).rdd();
-//		System.out.println(d.count());
-//
-//		Dataset<Row> parquet = sqlContext.read().parquet(path);
-//		parquet.show(20);
-
-//	}
-	
 	
 	public String toJson(ParametrizacionIngesta par) {
 		StringBuilder s = new StringBuilder();
@@ -174,8 +101,11 @@ public class Automatizacion {
 		s.append("{\"name\": \"id_ingesta\",\"value\": \""+ par.getId() + "\"}");
 		
 		
-		if (par.getConsulta_destino() != null && !par.getConsulta_destino().endsWith(">")) {
+		if (par.getConsulta_destino() != null ) {
 			s.append(",{\"name\": \"statement\",\"value\": \"( "+ par.getConsulta_destino() + ") as " + par.getNombre_tabla() + "\"}");
+
+			String fechaMax = par.getConsulta_destino().substring(par.getConsulta_destino().indexOf("BETWEEN")+8, par.getConsulta_destino().indexOf("AND"));
+			s.append(",{\"name\": \"fechaMax\",\"value\": \""+ fechaMax.trim().replace("'", "")+ "\"}");
 		}
 
 

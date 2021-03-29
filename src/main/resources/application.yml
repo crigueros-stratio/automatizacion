@@ -1,8 +1,0 @@
-#server:
-#  ssl:
-#    trust-store: classpath:comfandi-rocket.p12
-#    trust-store-password: changeit
-#    key-store: classpath:comfandi-rocket.p12
-#    key-password: changeit
-#    key-store-password: changeit
-#    key-alias: 1

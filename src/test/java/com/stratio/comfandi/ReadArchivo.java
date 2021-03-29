@@ -20,17 +20,20 @@ public class ReadArchivo {
 	static String findemes = ""; // el numero del mes con el que termina
 	
 	
-	static String archivo = "VBAP";
-	static String anio = "2021";
-	static String orden = "22"; // tiene que ser de dos caracteres
+	static String archivo = "DFKKOP";
+	static String anio = "2020";
+	static String orden = "51"; // tiene que ser de dos caracteres
+	/*VBAP*/
+//	static String campitos = " ZZF_DESDE,ZZF_HASTA,ZZMOT_RETIRO,ZZPARTNER_P,ZZPARTNER_A,ZZPARTNER_E,ZZSUELDO_DECL ,VBELN,POSNR,ARKTX,PSTYV,MATNR,ERDAT ";
+	/*DFKKOP*/
+	static String campitos = "  ABWBL, AUGBL, AUGDT, AUGRD, AUGST, BETRW, BLART, BLDAT, BUDAT, GPART, GPART_E, GPART_PAC, GPART_S, HVORG, OPBEL, OPUPK, PERSL, PYMET, RDSTA, RDSTB, TVORG, VKONT, VKTYP_PS, VTREF, PSOBTYP, FAEDN, Q_CUOTAS  ";
 	
-	
-	static String campofiltro = "ERDAT"; // el numero del mes con el que termina
+	static String campofiltro = "AUGDT"; // el numero del mes con el que termina
 
 	public static void main(String[] args) throws IOException {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("1", "31");
-		map.put("2", "28");
+		map.put("2", "29");
 		map.put("3", "31");
 		map.put("4", "30");
 		map.put("5", "31");
@@ -80,6 +83,7 @@ public class ReadArchivo {
 				data = data.replace("nameGrupo", orden + "_" + archivo + "_EN_DIC_" + anio);
 				data = data.replace("tabla", archivo);
 				data = data.replace("filtro", campofiltro);
+				data = data.replace("campitos", campitos);
 
 				bufferedOutput.write(data.getBytes());
 			}
