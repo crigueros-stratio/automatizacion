@@ -21,8 +21,8 @@ public class ReadArchivo {
 	
 	
 	static String archivo = "DFKKOP";
-	static String anio = "2020";
-	static String orden = "51"; // tiene que ser de dos caracteres
+	static String anio = "2015";
+	static String orden = "56"; // tiene que ser de dos caracteres
 	/*VBAP*/
 //	static String campitos = " ZZF_DESDE,ZZF_HASTA,ZZMOT_RETIRO,ZZPARTNER_P,ZZPARTNER_A,ZZPARTNER_E,ZZSUELDO_DECL ,VBELN,POSNR,ARKTX,PSTYV,MATNR,ERDAT ";
 	/*DFKKOP*/
@@ -33,7 +33,7 @@ public class ReadArchivo {
 	public static void main(String[] args) throws IOException {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("1", "31");
-		map.put("2", "29");
+		map.put("2", "28");
 		map.put("3", "31");
 		map.put("4", "30");
 		map.put("5", "31");

@@ -102,7 +102,7 @@ public class Automatizacion {
 		
 		
 		if (par.getConsulta_destino() != null ) {
-			s.append(",{\"name\": \"statement\",\"value\": \"( "+ par.getConsulta_destino() + ") as " + par.getNombre_tabla() + "\"}");
+			s.append(",{\"name\": \"statement\",\"value\": \"" + par.getConsulta_destino() + "\"}");
 
 			String fechaMax = par.getConsulta_destino().substring(par.getConsulta_destino().indexOf("BETWEEN")+8, par.getConsulta_destino().indexOf("AND"));
 			s.append(",{\"name\": \"fechaMax\",\"value\": \""+ fechaMax.trim().replace("'", "")+ "\"}");
