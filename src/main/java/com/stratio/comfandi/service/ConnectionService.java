@@ -29,6 +29,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConnectionService {
 
+	
+	/**
+	 * Se obtienen los cookies de Datacentric y se obtiene con el certificado y url de los flujos de rocket la url segura y aceptada para llamar los flujos de rocket.
+	 * @return
+	 */
 	public HttpsURLConnection confParameters() {
 		try {
 			String user = getCookie(System.getenv().get("URL_COOKIE"));
@@ -62,6 +67,12 @@ public class ConnectionService {
 
 	}
 
+	/**
+	 * Con el certificado de Datacentric y la url inical de los flujos de rocket se obtiene la conexion para llamar a cada flujo parametrizado
+	 * @param urlRocket
+	 * @param nameCert
+	 * @return
+	 */
 	public HttpsURLConnection getResTemplate(String urlRocket, String nameCert) {
 
 		try {
@@ -105,6 +116,13 @@ public class ConnectionService {
 
 	}
 
+	
+	/**
+	 * Conexion al microservicio de python para obtener los cookies de sesion en Datacentric
+	 * Esto se realiza con un usuario de servicio.
+	 * @param urlCookies
+	 * @return
+	 */
 	public String getCookie(String urlCookies) {
 		URL url;
 		try {
@@ -143,24 +161,4 @@ public class ConnectionService {
 		return "";
 
 	}
-
-//	public String consulta(String query) throws SQLException {
-//
-//		Connection con = DriverManager.getConnection(System.getenv().get("SPRING_DATASOURCE_URL") == null
-//				? "jdbc:postgresql://comfandi-poolpostgresmd5.comfandi.marathon.mesos:20120/comfandidc?prepareThreshold=0"
-//				: System.getenv().get("SPRING_DATASOURCE_URL"),
-//				System.getenv().get("SPRING_DATASOURCE_USERNAME") == null ? "extpostgresuser" : System.getenv().get("SPRING_DATASOURCE_USERNAME"),
-//				System.getenv().get("SPRING_DATASOURCE_PASSWORD") == null ? "QXpe64SdbEYeMQ5c"
-//						: System.getenv().get("SPRING_DATASOURCE_PASSWORD"));
-//		Statement st = con.createStatement();
-//		ResultSet rs = st.executeQuery(query);
-//
-//		if (rs.next()) {
-//			con.close();
-//			return rs.getString(1);
-//		} else
-//			con.close();
-//			return "";
-//	}
-
 }

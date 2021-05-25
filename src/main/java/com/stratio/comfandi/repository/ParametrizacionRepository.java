@@ -12,8 +12,7 @@ public interface ParametrizacionRepository extends JpaRepository<Parametrizacion
 	
 	
     List<ParametrizacionIngesta> findByEstado(Integer estado);
-    
-    
+
     @Query(value = "SELECT * FROM ingesta WHERE estado = :estado and  (current_date - fecha_fin_ingesta) >= periodicidad ", nativeQuery=true)
     List<ParametrizacionIngesta> findWithCondicion(Integer estado);
 }

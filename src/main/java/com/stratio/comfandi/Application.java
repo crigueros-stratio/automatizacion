@@ -8,6 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 
+/**
+ * Automatizacion: proceso por el cual las tablas inmutables y mutables son transferidas a Datacentric con la informacion 
+ * almacenada en el origen Comfandi.
+ * @author crigueros
+ *
+ */
 @SpringBootApplication
 public class Application {
 

@@ -22,6 +22,11 @@ public class ParametrizacionService {
 		return parametrizacionRepository.findByEstado(estado);
 	}
 	
+	 /**
+     * Busca todos los registros que tengan el estado en 1 (Activos) y que la ultima vez que se ejecutaron sea mayor o igual al parametrizado en la periodicidad.
+     * @param estado
+     * @return
+     */
 	public List<ParametrizacionIngesta> findWithCondicionFechas(Integer estado) {
 		return parametrizacionRepository.findWithCondicion(estado);
 	}

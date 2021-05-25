@@ -49,10 +49,15 @@ public class Automatizacion {
 
 	private final static Logger log = Logger.getLogger(Automatizacion.class.getName());
 
+	
+	/**
+	 * Esta funcion obtiene los registros activos de la tabla ingesta, con esta informacion se llama cada flujo de rocket parametrizado
+	 * y armando su json respectivo, de esta forma se corren los flujos secuencialmente y paralelamente de las ingestas.
+	 * @return
+	 */
 	@GetMapping("/start")
 	ResponseEntity<String> getStart() {
 		try {
-			
 			List<ParametrizacionIngesta> info = parametrizacionService.findWithCondicionFechas(1);
 
 			info.forEach(x -> {
@@ -94,6 +99,11 @@ public class Automatizacion {
 		return ResponseEntity.ok().body("");
 	}
 	
+	/**
+	 * Crea json segun lo parametrizado en base de datos tabla ingesta
+	 * @param par
+	 * @return
+	 */
 	public String toJson(ParametrizacionIngesta par) {
 		StringBuilder s = new StringBuilder();
 		s.append("{  \"workflowId\": \"" + par.getId_flujo() + "\",");
