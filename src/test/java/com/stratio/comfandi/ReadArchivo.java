@@ -13,20 +13,21 @@ import java.util.Scanner;
 
 public class ReadArchivo {
 
-	static String rutatemplate = "/home/stratio7/kmilo/Stratio/COMFANDI/ProyectoComfandi/ingestas/templateIngestas.json";
+	static String rutatemplate = "/home/stratio7/kmilo/Stratio/COMFANDI/ProyectoComfandi/ingestas/templateIngestas2.json";
 	static String identificador; // es siempre el numero del mes y se completa con 0 a la izquierda
 	static String mes; // el mes con dos digitos
 	static String version = ""; // de longitud de 1 version por mes
 	static String findemes = ""; // el numero del mes con el que termina
+	static String rutaSalida = "Environment.PATH_HDFS_LANDING_SAPCORE_PSCD";
 	
 	
 	static String archivo = "DFKKOP";
-	static String anio = "2015";
-	static String orden = "56"; // tiene que ser de dos caracteres
+	static String anio = "2019";
+	static String orden = "61"; // tiene que ser de dos caracteres
 	/*VBAP*/
 //	static String campitos = " ZZF_DESDE,ZZF_HASTA,ZZMOT_RETIRO,ZZPARTNER_P,ZZPARTNER_A,ZZPARTNER_E,ZZSUELDO_DECL ,VBELN,POSNR,ARKTX,PSTYV,MATNR,ERDAT ";
 	/*DFKKOP*/
-	static String campitos = "  ABWBL, AUGBL, AUGDT, AUGRD, AUGST, BETRW, BLART, BLDAT, BUDAT, GPART, GPART_E, GPART_PAC, GPART_S, HVORG, OPBEL, OPUPK, PERSL, PYMET, RDSTA, RDSTB, TVORG, VKONT, VKTYP_PS, VTREF, PSOBTYP, FAEDN, Q_CUOTAS  ";
+	static String campitos = " ABWBL, AUGBL, AUGDT, AUGRD, AUGST, BETRW, BLART, BLDAT, BUDAT, GPART, GPART_E, GPART_PAC, GPART_S, HVORG, OPBEL, OPUPK, PERSL, PYMET, RDSTA, RDSTB, TVORG, VKONT, VKTYP_PS, VTREF, PSOBTYP, FAEDN, Q_CUOTAS ";
 	
 	static String campofiltro = "AUGDT"; // el numero del mes con el que termina
 
@@ -84,6 +85,8 @@ public class ReadArchivo {
 				data = data.replace("tabla", archivo);
 				data = data.replace("filtro", campofiltro);
 				data = data.replace("campitos", campitos);
+				data = data.replace("rutaSalida", rutaSalida);
+
 
 				bufferedOutput.write(data.getBytes());
 			}

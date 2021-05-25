@@ -11,7 +11,7 @@ needed_cookies = ["user"]
 
 @app.route('/')
 def index():
-	cookies = "; ".join(get_cookies("https://rocket-comfandi.saaslatampd.stratio.com/comfandi-rocket/", "crigueros", "3#dKWmq.fArU"))
+	cookies = "; ".join(get_cookies("https://rocket-comfandi.saaslatampd.stratio.com/comfandi-rocket/", "srocketcomfandi", "u9eFIMJTc7fGt7"))
 	return cookies
 
 def login_sso(url, username, password):

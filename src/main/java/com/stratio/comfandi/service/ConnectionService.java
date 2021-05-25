@@ -31,8 +31,7 @@ public class ConnectionService {
 
 	public HttpsURLConnection confParameters() {
 		try {
-			String user = getCookie(System.getenv().get("URL_COOKIE"), System.getenv().get("USER_COOKIE"),
-					System.getenv().get("PW_COOKIE"));
+			String user = getCookie(System.getenv().get("URL_COOKIE"));
 
 			System.out.println(System.getenv().get("URL_COOKIE") + "-" + System.getenv().get("NAME_CERT") + "-"
 					+ System.getenv().get("CONTENT-TYPE") + "-" + System.getenv().get("ACCEPT") + "-"
@@ -106,7 +105,7 @@ public class ConnectionService {
 
 	}
 
-	public String getCookie(String urlCookies, String user, String pass) {
+	public String getCookie(String urlCookies) {
 		URL url;
 		try {
 			url = new URL(urlCookies == null ? "http://10.2.32.68:10081/" : urlCookies);
@@ -145,23 +144,23 @@ public class ConnectionService {
 
 	}
 
-	public String consulta(String query) throws SQLException {
-
-		Connection con = DriverManager.getConnection(System.getenv().get("SPRING_DATASOURCE_URL") == null
-				? "jdbc:postgresql://comfandi-poolpostgresmd5.comfandi.marathon.mesos:20120/comfandidc?prepareThreshold=0"
-				: System.getenv().get("SPRING_DATASOURCE_URL"),
-				System.getenv().get("SPRING_DATASOURCE_USERNAME") == null ? "extpostgresuser" : System.getenv().get("SPRING_DATASOURCE_USERNAME"),
-				System.getenv().get("SPRING_DATASOURCE_PASSWORD") == null ? "QXpe64SdbEYeMQ5c"
-						: System.getenv().get("SPRING_DATASOURCE_PASSWORD"));
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(query);
-
-		if (rs.next()) {
-			con.close();
-			return rs.getString(1);
-		} else
-			con.close();
-			return "";
-	}
+//	public String consulta(String query) throws SQLException {
+//
+//		Connection con = DriverManager.getConnection(System.getenv().get("SPRING_DATASOURCE_URL") == null
+//				? "jdbc:postgresql://comfandi-poolpostgresmd5.comfandi.marathon.mesos:20120/comfandidc?prepareThreshold=0"
+//				: System.getenv().get("SPRING_DATASOURCE_URL"),
+//				System.getenv().get("SPRING_DATASOURCE_USERNAME") == null ? "extpostgresuser" : System.getenv().get("SPRING_DATASOURCE_USERNAME"),
+//				System.getenv().get("SPRING_DATASOURCE_PASSWORD") == null ? "QXpe64SdbEYeMQ5c"
+//						: System.getenv().get("SPRING_DATASOURCE_PASSWORD"));
+//		Statement st = con.createStatement();
+//		ResultSet rs = st.executeQuery(query);
+//
+//		if (rs.next()) {
+//			con.close();
+//			return rs.getString(1);
+//		} else
+//			con.close();
+//			return "";
+//	}
 
 }
